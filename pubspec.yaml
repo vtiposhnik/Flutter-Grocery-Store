@@ -1,0 +1,37 @@
+name: namer_app
+description: A new Flutter project.
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 0.0.1+1
+
+environment:
+  sdk: ^3.1.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  english_words: ^4.0.0
+  provider: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  flutter_svg: ^2.0.10+1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - ./assets/icons/arrow-left.svg
+    - ./assets/icons/add-circle-button.svg
+    - ./assets/icons/magnifying-glass.svg
+    - ./assets/icons/oranges.png
+  fonts:
+    - family: TildaSans
+      fonts:
+        - asset: ./assets/fonts/TildaSans-Light.ttf
+        - asset: ./assets/fonts/TildaSans-Bold.ttf
+          style: italic
