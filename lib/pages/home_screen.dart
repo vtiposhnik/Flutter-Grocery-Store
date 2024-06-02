@@ -23,46 +23,51 @@ class _HomePageState extends State<HomePage> {
       appBar: appBar(),
       body: Column(children: [
         _searchField(),
-        Column(
-          children: [
-            Text(
-              'Categories',
-              style: TextStyle(color: Colors.black, fontSize: 19),
-            ),
-            SizedBox(height: 25),
-            Container(
-              height: 140,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                separatorBuilder: (context, index) => SizedBox(width: 10),
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.all(5),
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        color: categories[index].color,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          './assets/icons/oranges.png',
-                          width: 100,
-                          height: 100,
-                        ),
-                        Text(categories[index].name),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            )
-          ],
-        )
+        _categories()
       ]),
+      
     );
+  }
+
+  Column _categories() {
+    return Column(
+        children: [
+          Text(
+            'Categories',
+            style: TextStyle(color: Colors.black, fontSize: 19),
+          ),
+          SizedBox(height: 25),
+          Container(
+            height: 140,
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              separatorBuilder: (context, index) => SizedBox(width: 10),
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: EdgeInsets.all(5),
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                      color: categories[index].color,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        './assets/icons/oranges.png',
+                        width: 100,
+                        height: 100,
+                      ),
+                      Text(categories[index].name),
+                    ],
+                  ),
+                );
+              },
+            ),
+          )
+        ],
+      );
   }
 
   Container _searchField() {

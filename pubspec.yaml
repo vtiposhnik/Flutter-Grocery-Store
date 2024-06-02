@@ -25,6 +25,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - ./assets/logo.svg
     - ./assets/icons/arrow-left.svg
     - ./assets/icons/add-circle-button.svg
     - ./assets/icons/magnifying-glass.svg
