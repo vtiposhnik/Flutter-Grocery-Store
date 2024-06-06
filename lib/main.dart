@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:namer_app/models/product_model.dart';
 import 'package:namer_app/pages/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -13,16 +14,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Store App',
-      theme: ThemeData(
-        fontFamily: 'TildaSans',
-        useMaterial3: true,
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 0, 0, 0)),
-      ),
-      home: IntroPage(),
+    return ChangeNotifierProvider(
+      create: (context) => ProductProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Store App',
+        theme: ThemeData(
+          fontFamily: 'TildaSans',
+          useMaterial3: true,
+          colorScheme:
+              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 0, 0, 0)),
+        ),
+        home: IntroPage(),
+      )
     );
   }
 }
@@ -52,6 +56,7 @@ class IntroPage extends StatelessWidget {
                 );
               },
               child: Container(
+                height: 40,
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
