@@ -5,7 +5,15 @@ import 'package:namer_app/models/product_model.dart';
 import 'package:namer_app/pages/home_screen.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(MyApp());
 }
 
@@ -15,19 +23,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ProductProvider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Store App',
-        theme: ThemeData(
-          fontFamily: 'TildaSans',
-          useMaterial3: true,
-          colorScheme:
-              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 0, 0, 0)),
-        ),
-        home: IntroPage(),
-      )
-    );
+        create: (context) => ProductProvider(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Store App',
+          theme: ThemeData(
+            fontFamily: 'TildaSans',
+            useMaterial3: true,
+            colorScheme:
+                ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 0, 0, 0)),
+          ),
+          home: IntroPage(),
+        ));
   }
 }
 
@@ -56,7 +63,7 @@ class IntroPage extends StatelessWidget {
                 );
               },
               child: Container(
-                height: 40,
+                  height: 40,
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
