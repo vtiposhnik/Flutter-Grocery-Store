@@ -22,7 +22,7 @@ class ProductItemCard extends StatelessWidget {
     return Container(
       width: 200,
       margin: EdgeInsets.all(5),
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black),
           borderRadius: BorderRadius.circular(10)),
@@ -31,10 +31,7 @@ class ProductItemCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Flexible(
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: SvgPicture.asset(imgUrl),
-            ),
+            child: SvgPicture.asset(imgUrl, width: 100, height: 100,)
           ),
           SizedBox(height: 15),
           Flexible(

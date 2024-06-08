@@ -2,6 +2,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:namer_app/models/category_model.dart';
 import 'package:namer_app/models/product_model.dart';
+import 'package:namer_app/pages/addProduct_screen.dart';
 import 'package:namer_app/pages/home_screen.dart';
 import 'package:namer_app/widgets/Discounts/productItem_widget.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,22 @@ class _DiscountsPageState extends State<DiscountsPage> {
               },
               child: SvgPicture.asset('./assets/icons/arrow-left.svg')),
         ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddProductScreen(),
+                  ));
+            },
+            child: Container(
+              margin: EdgeInsets.all(15),
+              decoration: BoxDecoration(),
+              child: SvgPicture.asset('./assets/icons/add-circle-button.svg'),
+            ),
+          )
+        ],
       ),
       body: Column(
         children: [
