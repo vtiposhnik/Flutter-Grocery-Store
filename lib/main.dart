@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:namer_app/models/product_model.dart';
 import 'package:namer_app/models/user_model.dart';
-import 'package:namer_app/pages/auth_page_screen.dart';
-import 'package:namer_app/pages/home_screen.dart';
+import 'package:namer_app/screen/auth_page_screen.dart';
+import 'package:namer_app/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
