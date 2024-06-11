@@ -1,5 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:namer_app/models/product_model.dart';
+import 'package:namer_app/widgets/Discounts/discountItem_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:namer_app/models/user_model.dart';
+import '../models/category_model.dart';
 import 'discounts_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +19,27 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   int points = 0;
+  List<CategoryModel> categories = [];
+  Map<String, dynamic>? currentUser;
+
+  void _getCategories() {
+    categories = CategoryModel.getCategories();
+  }
+
+  void _getCurrentUser() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    Map<String, dynamic>? fetchedUser = await userProvider.fetchUser();
+    setState(() {
+      currentUser = fetchedUser;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCategories();
+    _getCurrentUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +53,36 @@ class _HomePageState extends State<HomePage> {
           ]),
         ),
         bottomNavigationBar: _bottomNavbar());
+  }
+
+  AppBar appBar() {
+    return AppBar(
+      title: Text(
+        'Привет, ${currentUser?['username']}!',
+        style: TextStyle(
+            color: Colors.yellow, fontSize: 21, fontWeight: FontWeight.w600),
+      ),
+      backgroundColor: Colors.green.shade400,
+      actions: [
+        GestureDetector(
+          onTap: () {},
+          child: Row(
+            children: [
+              Container(
+                margin: EdgeInsets.all(15),
+                decoration: BoxDecoration(),
+                child: SvgPicture.asset('./assets/icons/add-circle-button.svg'),
+              ),
+              Container(
+                margin: EdgeInsets.all(17),
+                decoration: BoxDecoration(),
+                child: SvgPicture.asset('./assets/icons/bell.svg'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   Container _discounts() {
@@ -41,65 +99,33 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(
-              height: 200,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                separatorBuilder: (context, index) => SizedBox(width: 8),
-                itemBuilder: (context, index) {
-                  return _discountItem();
-                },
-              ),
-            ),
+                height: 400,
+                child:
+                    Consumer<ProductProvider>(builder: (context, value, child) {
+                  return FutureBuilder(
+                      future: value.fetchProducts(),
+                      builder: (context, snapshot) {
+                        if (value.products.isEmpty) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: value.products.length,
+                          separatorBuilder: (context, index) =>
+                              SizedBox(width: 8),
+                          itemBuilder: (context, index) {
+                            return DiscountItemCard(
+                                name: value.products[index].name,
+                                price: value.products[index].price,
+                                imgUrl: value.products[index].imageUrl,
+                                discountPercentage:
+                                    value.products[index].discountPercentage);
+                          },
+                        );
+                      });
+                }))
           ],
         ));
-  }
-
-  Widget _discountItem() {
-    return Container(
-      height: 300,
-      width: 150,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.black)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(
-            './assets/productsImg/logo.png',
-            fit: BoxFit.cover,
-            height: 100,
-            width: 150,
-          ),
-          Expanded(
-              child: Padding(
-            padding: EdgeInsets.all(8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '20% скидка',
-                  style:
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-                ),
-                Text('Greek Yougurt'),
-                Text(
-                  '1 299 Тг',
-                  style: TextStyle(
-                      decoration: TextDecoration.lineThrough,
-                      color: Colors.grey),
-                ),
-                Text(
-                  '999 Тг',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          )),
-        ],
-      ),
-    );
   }
 
   Container _currentBonusPts() {
@@ -112,8 +138,8 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           Text(
-            'Active points:',
-            style: TextStyle(fontSize: 17, color: Colors.white),
+            'Текущие бонусы:',
+            style: TextStyle(fontSize: 18, color: Colors.white),
           ),
           Text(
             '$points B',
@@ -124,8 +150,8 @@ class _HomePageState extends State<HomePage> {
             style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(Colors.white70)),
             child: Text(
-              'Go Shop',
-              style: TextStyle(color: Colors.black, fontSize: 15),
+              'Покупки',
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
           )
         ],
@@ -168,7 +194,11 @@ class _HomePageState extends State<HomePage> {
           color: Colors.green,
         ),
         SizedBox(height: 8),
-        Text(label, textAlign: TextAlign.center),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 16),
+        ),
       ],
     );
   }
@@ -197,23 +227,23 @@ class _HomePageState extends State<HomePage> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: 'Home',
+          label: 'Главная',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.local_offer),
-          label: 'Discounts',
+          label: 'Скидки',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.qr_code_scanner),
-          label: 'Scan',
+          label: 'Сканнер',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.card_giftcard),
-          label: 'Promotions',
+          label: 'Бонусы',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
-          label: 'Profile',
+          label: 'Профиль',
         ),
       ],
       currentIndex: _selectedIndex,
@@ -223,33 +253,43 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  AppBar appBar() {
-    const name = 'user';
-    return AppBar(
-      title: Text(
-        'Hello, $name!',
-        style: TextStyle(
-            color: Colors.yellow, fontSize: 21, fontWeight: FontWeight.w600),
-      ),
-      backgroundColor: Colors.green.shade400,
-      actions: [
-        GestureDetector(
-          onTap: () {},
-          child: Row(
-            children: [
-              Container(
-                margin: EdgeInsets.all(15),
-                decoration: BoxDecoration(),
-                child: SvgPicture.asset('./assets/icons/add-circle-button.svg'),
-              ),
-              Container(
-                margin: EdgeInsets.all(17),
-                decoration: BoxDecoration(),
-                child: SvgPicture.asset('./assets/icons/bell.svg'),
-              ),
-            ],
+  Column _categories() {
+    return Column(
+      children: [
+        Text('Категории',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.w500)),
+        SizedBox(height: 25),
+        Container(
+          height: 140,
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: categories.length,
+            separatorBuilder: (context, index) => SizedBox(width: 10),
+            itemBuilder: (context, index) {
+              return Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    color: categories[index].color,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      './assets/icons/oranges.png',
+                      width: 100,
+                      height: 100,
+                    ),
+                    Text(categories[index].name),
+                  ],
+                ),
+              );
+            },
           ),
-        ),
+        )
       ],
     );
   }

@@ -20,7 +20,6 @@ class ProductItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
       margin: EdgeInsets.all(5),
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -28,20 +27,22 @@ class ProductItemCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Flexible(
-            child: SvgPicture.asset(imgUrl, width: 100, height: 100,)
-          ),
-          SizedBox(height: 15),
+              child: Image.network(
+            imgUrl,
+            width: 100,
+            height: 100,
+          )),
           Flexible(
               child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  name.toUpperCase(),
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 20),
                 ),
@@ -49,7 +50,7 @@ class ProductItemCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '\$$price',
+                      '$price P',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     ElevatedButton(onPressed: () {}, child: Icon(Icons.add))

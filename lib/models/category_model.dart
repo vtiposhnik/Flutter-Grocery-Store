@@ -12,17 +12,17 @@ class CategoryModel {
     List<CategoryModel> categories = [];
 
     categories.add(
-        CategoryModel(name: 'Dairy', icon: './', color: Color(0xFF2196F4)));
+        CategoryModel(name: 'Молочные', icon: './', color: Color(0xFF2196F4)));
     categories.add(CategoryModel(
-        name: 'Drinks', icon: './', color: Color.fromARGB(255, 122, 196, 70)));
+        name: 'Напитки', icon: './', color: Color.fromARGB(255, 122, 196, 70)));
     categories.add(CategoryModel(
-        name: 'Meat', icon: './', color: Color.fromARGB(255, 175, 117, 51)));
+        name: 'Мясо', icon: './', color: Color.fromARGB(255, 175, 117, 51)));
     categories.add(CategoryModel(
-        name: 'Baked', icon: './', color: Color.fromARGB(255, 255, 251, 7)));
+        name: 'Запеканки', icon: './', color: Color.fromARGB(255, 255, 251, 7)));
     categories.add(CategoryModel(
-        name: 'Sweets', icon: './', color: Color.fromARGB(255, 228, 99, 170)));
+        name: 'Сладости', icon: './', color: Color.fromARGB(255, 228, 99, 170)));
     categories.add(CategoryModel(
-        name: 'Alcohol', icon: './', color: Color.fromARGB(255, 244, 63, 63)));
+        name: 'Алкогольное', icon: './', color: Color.fromARGB(255, 244, 63, 63)));
 
     return categories;
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
   final String id;
@@ -17,7 +18,7 @@ class Product {
       required this.category,
       required discounted,
       discountPercentage = 0.0});
-      
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -32,53 +33,34 @@ class Product {
 }
 
 class ProductProvider extends ChangeNotifier {
-  final List<Product> _productsList = [
-    Product(
-      id: 'p1',
-      name: 'Бананы',
-      price: 45.0,
-      imageUrl: './assets/productsImg/fruits.svg',
-      category: 'Фрукты',
-      discounted: false,
-    ),
-    Product(
-      id: 'p2',
-      name: 'Яблоки',
-      price: 60.0,
-      imageUrl: './assets/productsImg/fruits.svg',
-      category: 'Фрукты',
-      discounted: true, // This product is discounted
-    ),
-    Product(
-      id: 'p3',
-      name: 'Молоко',
-      price: 80.0,
-      imageUrl: './assets/productsImg/fruits.svg',
-      category: 'Молочные продукты',
-      discounted: false,
-    ),
-    Product(
-      id: 'p4',
-      name: 'Хлеб',
-      price: 30.0,
-      imageUrl: './assets/productsImg/fruits.svg',
-      category: 'Выпечка',
-      discounted: true, // This product is discounted
-    ),
-    Product(
-      id: 'p5',
-      name: 'Курица',
-      price: 150.0,
-      imageUrl: './assets/productsImg/fruits.svg',
-      category: 'Мясо',
-      discounted: false,
-    ),
-  ];
+  List<Product> _productsList = [];
 
   List<Product> get products => _productsList;
 
   void addProduct(Product product) {
     _productsList.add(product);
     notifyListeners();
+  }
+
+  Future<void> fetchProducts() async {
+    try {
+      final QuerySnapshot snapshot =
+          await FirebaseFirestore.instance.collection('products').get();
+      final products = snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        return Product(
+          id: doc.id,
+          name: data['name'],
+          price: data['price'].toDouble(),
+          imageUrl: data['imageUrl'],
+          discounted: data['discounted'],
+          category: data['category'],
+        );
+      }).toList();
+      _productsList = products;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 }

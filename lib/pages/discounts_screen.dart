@@ -28,7 +28,7 @@ class _DiscountsPageState extends State<DiscountsPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Discounts'),
+        title: Text('Скидки'),
         leading: Padding(
           padding: const EdgeInsets.all(15),
           child: GestureDetector(
@@ -56,21 +56,23 @@ class _DiscountsPageState extends State<DiscountsPage> {
         ],
       ),
       body: Column(
-        children: [
-          _searchField(),
-          _categories(),
-          SizedBox(height: 40),
-          _categoriesFilter(),
-          _productsList()
-        ],
+        children: [_searchField(), _categoriesFilter(), _productsList()],
       ),
     );
   }
 
   Column _categoriesFilter() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Categories', style: TextStyle(color: Colors.black, fontSize: 19)),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+            child: Text('Категории',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500))),
         SizedBox(
           height: 10,
         ),
@@ -83,8 +85,7 @@ class _DiscountsPageState extends State<DiscountsPage> {
             separatorBuilder: (context, index) => SizedBox(width: 10),
             itemBuilder: (context, index) {
               return Container(
-                  width: 80,
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                   decoration: BoxDecoration(
                       color: categories[index].color,
                       borderRadius: BorderRadius.circular(30)),
@@ -92,9 +93,9 @@ class _DiscountsPageState extends State<DiscountsPage> {
                     categories[index].name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 21,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white54),
+                        color: Colors.white),
                   ));
             },
           ),
@@ -108,18 +109,25 @@ class _DiscountsPageState extends State<DiscountsPage> {
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: Consumer<ProductProvider>(builder: (context, value, child) {
-              return GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: value.products.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, childAspectRatio: 0.8),
-                  itemBuilder: (context, index) {
-                    return ProductItemCard(
-                        id: value.products[index].id,
-                        name: value.products[index].name,
-                        price: value.products[index].price,
-                        imgUrl: value.products[index].imageUrl,
-                        category: value.products[index].category);
+              return FutureBuilder(
+                  future: value.fetchProducts(),
+                  builder: (context, snapshot) {
+                    if (value.products.isEmpty) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return GridView.builder(
+                        shrinkWrap: true,
+                        itemCount: value.products.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, childAspectRatio: 0.7),
+                        itemBuilder: (context, index) {
+                          return ProductItemCard(
+                              id: value.products[index].id,
+                              name: value.products[index].name,
+                              price: value.products[index].price,
+                              imgUrl: value.products[index].imageUrl,
+                              category: value.products[index].category);
+                        });
                   });
             })));
   }
@@ -127,7 +135,7 @@ class _DiscountsPageState extends State<DiscountsPage> {
   Container _searchField() {
     return Container(
       height: 80,
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       child: TextField(
         decoration: InputDecoration(
           prefixIcon: Container(
@@ -136,48 +144,9 @@ class _DiscountsPageState extends State<DiscountsPage> {
                   width: 30, height: 30)),
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-          hintText: 'Search a product...',
+          hintText: 'Найти продукт...',
         ),
       ),
-    );
-  }
-
-  Column _categories() {
-    return Column(
-      children: [
-        Text(
-          'Categories',
-          style: TextStyle(color: Colors.black, fontSize: 19),
-        ),
-        SizedBox(height: 25),
-        Container(
-          height: 140,
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: categories.length,
-            separatorBuilder: (context, index) => SizedBox(width: 10),
-            itemBuilder: (context, index) {
-              return Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                    color: categories[index].color,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      './assets/icons/oranges.png',
-                      width: 100,
-                      height: 100,
-                    ),
-                    Text(categories[index].name),
-                  ],
-                ),
-              );
-            },
-          ),
-        )
-      ],
     );
   }
 }
