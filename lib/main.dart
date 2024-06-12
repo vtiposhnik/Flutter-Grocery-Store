@@ -34,12 +34,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Kushay',
-          theme: ThemeData(
-            fontFamily: 'TildaSans',
-            useMaterial3: true,
-            colorScheme:
-                ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 0, 0, 0)),
-          ),
+          theme: ThemeData(fontFamily: 'TildaSans'),
           home: SplashScreen(),
         ));
   }

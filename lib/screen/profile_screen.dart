@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text('Профиль'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -44,25 +44,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   radius: 50,
                   backgroundColor: Colors.green.shade200,
                   child: Image.asset('./assets/icons/user_profile.png')),
+              SizedBox(height: 10),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
                 child: Text(
-                  '${context.watch<UserProvider>().user!['username']}, you are with us since: ${_auth.currentUser!.metadata.creationTime.toString().split(' ').first}',
+                  '${context.watch<UserProvider>().user!['username']}, вместе с Kushay Club с: ${_auth.currentUser!.metadata.creationTime.toString().split(' ').first}',
                   style: TextStyle(fontSize: 19),
                   textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(height: 20),
               Text(
-                'My Purchases',
+                'Мои покупки',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               _buildPurchaseList(),
               SizedBox(height: 20),
               Text(
-                'My Coupons',
+                'Мои купоны',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
@@ -79,7 +80,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildPurchaseList() {
-    // Replace with your actual data fetching logic
     List<String> purchases = [];
 
     if (purchases.isNotEmpty) {
@@ -100,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return Card(
         color: Colors.white,
         child: ListTile(
-          title: Text('No Purchases yet...', textAlign: TextAlign.center),
+          title: Text('Пока нет покупок...', textAlign: TextAlign.center),
         ),
       );
     }
@@ -127,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return Card(
         color: Colors.white,
         child: ListTile(
-          title: Text('No Coupons yet...', textAlign: TextAlign.center),
+          title: Text('Пока нет купонов...', textAlign: TextAlign.center),
         ),
       );
     }
@@ -143,7 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Rate the App',
+            'Оцените приложение',
             style: TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           ),
@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  // Handle rating logic
+                  // логика оценки приложения
                 },
               );
             }),
@@ -165,14 +165,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(height: 10),
           ElevatedButton(
             style: ButtonStyle(
-                backgroundColor:
-                    WidgetStateProperty.all(Colors.white)),
+                backgroundColor: WidgetStateProperty.all(Colors.white)),
             onPressed: () {
-              // Handle rate the app button press
+              // фывдоадыао
             },
-            child: Text(
-              'Submit Rating'
-            ),
+            child: Text('Внести оценку'),
           ),
         ],
       ),
@@ -184,7 +181,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Follow Us',
+          'Следите за нами в',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 10),
@@ -193,21 +190,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             IconButton(
               icon: Icon(Icons.facebook),
-              onPressed: () {
-                // Handle Facebook link press
-              },
+              onPressed: () {},
             ),
             IconButton(
               icon: Icon(Icons.live_tv_rounded),
-              onPressed: () {
-                // Handle Twitter link press
-              },
+              onPressed: () {},
             ),
             IconButton(
               icon: Icon(Icons.tiktok_rounded),
-              onPressed: () {
-                // Handle Instagram link press
-              },
+              onPressed: () {},
             ),
           ],
         ),

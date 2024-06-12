@@ -55,21 +55,11 @@ class _HomePageState extends State<HomePage> {
       actions: [
         GestureDetector(
           onTap: () {},
-          child: Row(
-            children: [
-              Container(
-                margin: EdgeInsets.all(15),
-                decoration: BoxDecoration(),
-                child: SvgPicture.asset('./assets/icons/add-circle-button.svg',
-                    color: Colors.white),
-              ),
-              Container(
-                margin: EdgeInsets.all(17),
-                decoration: BoxDecoration(),
-                child: SvgPicture.asset('./assets/icons/bell.svg',
-                    color: Colors.white),
-              ),
-            ],
+          child: Container(
+            margin: EdgeInsets.all(17),
+            decoration: BoxDecoration(),
+            child: SvgPicture.asset('./assets/icons/bell.svg',
+                color: Colors.white),
           ),
         ),
       ],
@@ -180,21 +170,29 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Column _gridItem(String label, IconData icon) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          icon,
-          color: Colors.green,
+  Container _gridItem(String label, IconData icon) {
+    return Container(
+      padding: EdgeInsets.all(1.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          border: Border.all(color: Color.fromARGB(255, 233, 230, 230))),
+      child: GestureDetector(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              color: Colors.green,
+            ),
+            SizedBox(height: 7.0),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 15),
+            ),
+          ],
         ),
-        SizedBox(height: 8),
-        Text(
-          label,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 16),
-        ),
-      ],
+      ),
     );
   }
 

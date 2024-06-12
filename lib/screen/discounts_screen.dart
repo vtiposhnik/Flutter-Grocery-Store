@@ -30,7 +30,6 @@ class _DiscountsPageState extends State<DiscountsPage> {
       appBar: AppBar(
         centerTitle: false,
         title: Text('Скидки'),
-        
         actions: [
           GestureDetector(
             onTap: () {
@@ -101,7 +100,6 @@ class _DiscountsPageState extends State<DiscountsPage> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 21,
-                        fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ));
             },
@@ -149,8 +147,7 @@ class _DiscountsPageState extends State<DiscountsPage> {
       child: TextField(
         decoration: InputDecoration(
           prefixIcon: Container(
-              margin: EdgeInsets.all(10),
-              child: Icon(Icons.search_outlined)),
+              margin: EdgeInsets.all(10), child: Icon(Icons.search_outlined)),
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
           hintText: 'Найти продукт...',
