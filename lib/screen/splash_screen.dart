@@ -60,8 +60,7 @@ class _SplashScreenState extends State<SplashScreen>
         child: AnimatedScale(
           duration: Duration(milliseconds: 500),
           scale: logoScale,
-          child: SvgPicture.asset('./assets/logo.svg',
-              height: 150, width: 100),
+          child: SvgPicture.asset('./assets/logo.svg', height: 150, width: 100),
         ),
       ),
     );

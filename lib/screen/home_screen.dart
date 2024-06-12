@@ -263,44 +263,44 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Column _categories() {
-    return Column(
-      children: [
-        Text('Категории',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.w500)),
-        SizedBox(height: 25),
-        Container(
-          height: 140,
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: categories.length,
-            separatorBuilder: (context, index) => SizedBox(width: 10),
-            itemBuilder: (context, index) {
-              return Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                    color: categories[index].color,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      './assets/icons/oranges.png',
-                      width: 100,
-                      height: 100,
-                    ),
-                    Text(categories[index].name),
-                  ],
-                ),
-              );
-            },
-          ),
-        )
-      ],
-    );
-  }
+  // Column _categories() {
+  //   return Column(
+  //     children: [
+  //       Text('Категории',
+  //           textAlign: TextAlign.left,
+  //           style: TextStyle(
+  //               color: Colors.black,
+  //               fontSize: 24,
+  //               fontWeight: FontWeight.w500)),
+  //       SizedBox(height: 25),
+  //       Container(
+  //         height: 140,
+  //         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+  //         child: ListView.separated(
+  //           scrollDirection: Axis.horizontal,
+  //           itemCount: categories.length,
+  //           separatorBuilder: (context, index) => SizedBox(width: 10),
+  //           itemBuilder: (context, index) {
+  //             return Container(
+  //               padding: EdgeInsets.all(5),
+  //               decoration: BoxDecoration(
+  //                   color: categories[index].color,
+  //                   borderRadius: BorderRadius.circular(10)),
+  //               child: Column(
+  //                 children: [
+  //                   Image.asset(
+  //                     './assets/icons/oranges.png',
+  //                     width: 100,
+  //                     height: 100,
+  //                   ),
+  //                   Text(categories[index].name),
+  //                 ],
+  //               ),
+  //             );
+  //           },
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
 }

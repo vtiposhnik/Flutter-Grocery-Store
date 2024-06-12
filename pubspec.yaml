@@ -29,16 +29,11 @@ flutter:
   uses-material-design: true
   assets:
     - ./assets/logo.svg
-    - ./assets/productsImg/logo.png
-    - ./assets/productsImg/fruits.svg
     - ./assets/icons/bell.svg
     - ./assets/icons/arrow-left.svg
     - ./assets/icons/add-circle-button.svg
-    - ./assets/icons/magnifying-glass.svg
-    - ./assets/icons/oranges.png
   fonts:
     - family: TildaSans
       fonts:
-        - asset: ./assets/fonts/TildaSans-Light.ttf
-        - asset: ./assets/fonts/TildaSans-Bold.ttf
+        - asset: ./assets/fonts/TildaSans-Regular.ttf
           style: italic

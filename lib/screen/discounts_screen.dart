@@ -150,8 +150,7 @@ class _DiscountsPageState extends State<DiscountsPage> {
         decoration: InputDecoration(
           prefixIcon: Container(
               margin: EdgeInsets.all(10),
-              child: SvgPicture.asset('./assets/icons/magnifying-glass.svg',
-                  width: 30, height: 30)),
+              child: Icon(Icons.search_outlined)),
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
           hintText: 'Найти продукт...',
