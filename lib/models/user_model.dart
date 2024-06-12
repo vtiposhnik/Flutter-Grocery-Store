@@ -34,7 +34,6 @@ class UserProvider with ChangeNotifier {
     try {
       User? firebaseUser = _auth.currentUser;
       if (firebaseUser != null) {
-        print("flskdfjSUERSERJSER");
         DocumentSnapshot userDoc =
             await _firestore.collection('users').doc(firebaseUser.uid).get();
         _user = userDoc.data() as Map<String, dynamic>;

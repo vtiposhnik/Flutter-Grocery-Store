@@ -28,9 +28,11 @@ class _HomePageState extends State<HomePage> {
   void _getCurrentUser() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     Map<String, dynamic>? fetchedUser = await userProvider.fetchUser();
-    setState(() {
-      currentUser = fetchedUser;
-    });
+    if (mounted) {
+      setState(() {
+        currentUser = fetchedUser;
+      });
+    }
   }
 
   @override
@@ -68,12 +70,14 @@ class _HomePageState extends State<HomePage> {
               Container(
                 margin: EdgeInsets.all(15),
                 decoration: BoxDecoration(),
-                child: SvgPicture.asset('./assets/icons/add-circle-button.svg'),
+                child: SvgPicture.asset('./assets/icons/add-circle-button.svg',
+                    color: Colors.white),
               ),
               Container(
                 margin: EdgeInsets.all(17),
                 decoration: BoxDecoration(),
-                child: SvgPicture.asset('./assets/icons/bell.svg'),
+                child: SvgPicture.asset('./assets/icons/bell.svg',
+                    color: Colors.white),
               ),
             ],
           ),
@@ -206,6 +210,7 @@ class _HomePageState extends State<HomePage> {
 
   BottomNavigationBar _bottomNavbar() {
     void onItemTapped(int index) {
+      if (!mounted) return;
       setState(() {
         _selectedIndex = index;
       });

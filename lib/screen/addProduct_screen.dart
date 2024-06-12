@@ -50,7 +50,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Product'),
+        title: Text('Добавление Продукта'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -59,7 +59,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           child: ListView(
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: 'Имя'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a name';
@@ -71,11 +71,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Price'),
+                decoration: InputDecoration(labelText: 'Цена'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a price';
+                    return 'Введите Цену';
                   }
                   return null;
                 },
@@ -84,10 +84,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Image URL'),
+                decoration: InputDecoration(labelText: 'Изображение'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter an image URL';
+                    return 'Загрузите изображение';
                   }
                   return null;
                 },
@@ -96,10 +96,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Category'),
+                decoration: InputDecoration(labelText: 'Категория'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a category';
+                    return 'Введите категорию!';
                   }
                   return null;
                 },
@@ -108,7 +108,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 },
               ),
               SwitchListTile(
-                title: Text('Discounted'),
+                title: Text('Действует скидка'),
                 value: _discounted,
                 onChanged: (value) {
                   setState(() {
@@ -118,7 +118,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               if (_discounted)
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Discount Percentage'),
+                  decoration: InputDecoration(labelText: 'Процент скидки'),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -132,8 +132,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
               SizedBox(height: 20),
               ElevatedButton(
+                style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.green)),
                 onPressed: _addProduct,
-                child: Text('Add Product'),
+                child: Text('Добавить продукт', style: TextStyle(color: Colors.white),),
               ),
             ],
           ),

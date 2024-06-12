@@ -126,7 +126,7 @@ class _DiscountsPageState extends State<DiscountsPage> {
                         shrinkWrap: true,
                         itemCount: value.products.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, childAspectRatio: 0.7),
+                            crossAxisCount: 2, childAspectRatio: 0.65),
                         itemBuilder: (context, index) {
                           return ProductItemCard(
                             id: value.products[index].id,
