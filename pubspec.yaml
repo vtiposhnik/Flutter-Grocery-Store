@@ -32,6 +32,7 @@ flutter:
     - ./assets/icons/bell.svg
     - ./assets/icons/arrow-left.svg
     - ./assets/icons/add-circle-button.svg
+    - ./assets/icons/user_profile.png
   fonts:
     - family: TildaSans
       fonts:

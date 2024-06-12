@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:namer_app/models/product_model.dart';
 import 'package:namer_app/screen/cart_screen.dart';
+import 'package:namer_app/screen/profile_screen.dart';
 import 'package:namer_app/widgets/HomePage/discountItem_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:namer_app/models/user_model.dart';
@@ -19,27 +20,16 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   int points = 0;
   List<CategoryModel> categories = [];
-  Map<String, dynamic>? currentUser;
+  // Map<String, dynamic>? currentUser;
 
   void _getCategories() {
     categories = CategoryModel.getCategories();
-  }
-
-  void _getCurrentUser() async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    Map<String, dynamic>? fetchedUser = await userProvider.fetchUser();
-    if (mounted) {
-      setState(() {
-        currentUser = fetchedUser;
-      });
-    }
   }
 
   @override
   void initState() {
     super.initState();
     _getCategories();
-    _getCurrentUser();
   }
 
   @override
@@ -57,7 +47,7 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Text(
-        'Привет, ${currentUser?['username']}!',
+        'Привет, ${context.watch<UserProvider>().user!['username']}!',
         style: TextStyle(
             color: Colors.yellow, fontSize: 21, fontWeight: FontWeight.w600),
       ),
@@ -229,6 +219,11 @@ class _HomePageState extends State<HomePage> {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => CartScreen()),
+        );
+      } else if (index == 4) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileScreen()),
         );
       }
     }

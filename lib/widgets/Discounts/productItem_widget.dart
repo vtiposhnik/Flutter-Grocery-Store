@@ -77,11 +77,15 @@ class ProductItemCard extends StatelessWidget {
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 20),
                   ),
+                  Text(
+                    '$price P',
+                    style: TextStyle(decoration: TextDecoration.lineThrough, color: Colors.red.shade300),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '$price P',
+                        '${price * discountPercentage / 100} P',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       ElevatedButton(

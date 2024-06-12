@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:namer_app/main.dart';
+import 'package:namer_app/models/user_model.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:namer_app/screen/auth_page_screen.dart';
 import 'package:namer_app/screen/home_screen.dart';
@@ -20,11 +22,17 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
+    _getCurrentUser();
     _ticker = createTicker(_animate)..start();
 
     Future.delayed(Duration(seconds: 5), () {
       _checkUserSession();
     });
+  }
+
+  void _getCurrentUser() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    await userProvider.fetchUser();
   }
 
   void _animate(Duration timeElapsed) {
